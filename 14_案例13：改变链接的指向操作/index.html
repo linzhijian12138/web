@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <style>
+        .wrapper .footer {
+            position: absolute;
+            bottom: 100px;
+            height: 100px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .wrapper .top {
+            height: 300px;
+            width: 500px;
+            margin: 100px auto;
+        }
+
+        .wrapper .top img {
+            height: 300px;
+            width: 500px;
+        }
+
+        .wrapper .footer button {
+            padding: 10px 30px;
+            box-shadow: 0 0 5px black;
+        }
+    </style>
+
+    <script>
+        function changeImg(value) {
+            console.log(this.id);
+            
+            // if (value === 1) {
+            //     var img = document.getElementById('top_img')
+            //     img.setAttribute('src', './img/3.png')
+            // }
+            // if (value === 2) {
+            //     var img = document.getElementById('top_img')
+            //     img.setAttribute('src', './img/2.jpeg')
+            // }
+            // if (value === 3) {
+            //     var img = document.getElementById('top_img')
+            //     img.setAttribute('src', './img/1.png')
+            // }
+            // if (value === 4) {
+            //     var img = document.getElementById('top_img')
+            //     img.setAttribute('src', './img/4.jpg')
+            // }
+        }
+    </script>
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="top">
+            <img id="top_img" src="./img/3.png">
+        </div>
+
+        <div class="footer">
+            <button id="bd" onclick="changeImg(1)">百度</button>
+            <button id="mk" onclick="changeImg(2)">慕课网</button>
+            <button id="tb" onclick="changeImg(3)">淘宝</button>
+            <button id="jd" onclick="changeImg(4)">京东</button>
+        </div>
+
+
+
+    </div>
+</body>
+
+</html>

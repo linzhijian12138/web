@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <style>
+        .wrapper {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .wrapper .top {
+            margin-top: 20px;
+            margin-left: 20px;
+            float: left;
+        }
+
+        .wrapper .top button {
+            float: left;
+            margin-right: 50px;
+        }
+
+        .wrapper .img1_wrapper {
+            border: 1px solid black;
+            height: 300px;
+            width: 400px;
+            position: absolute;
+            right: 0;
+            top: 100px;
+        }
+
+        .wrapper .img1 {
+            height: 100%;
+            width: 100%;
+        }
+
+        .wrapper .img1_wrapper .closed_wrapper {
+            display: none;
+        }
+
+
+        .wrapper .img1_wrapper:hover .closed_wrapper {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            height: 20px;
+            width: 20px;
+            background: #fff;
+            padding: 3px;
+            display: block;
+        }
+
+        .wrapper .img1_wrapper .closed_wrapper .closed {
+            height: 100%;
+            width: 100%;
+        }
+
+        .wrapper .img2_wrapper {
+            border: 1px solid black;
+            height: 100px;
+            width: 300px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            padding: 10px;
+        }
+
+        .wrapper .img2_wrapper .closed_wrapper {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            height: 20px;
+            width: 20px;
+            background: #fff;
+            padding: 3px;
+        }
+
+        .wrapper .img2_wrapper .closed_wrapper .closed {
+            height: 100%;
+            width: 100%;
+        }
+
+        .wrapper .img2_wrapper .img2 {
+            float: left;
+            height: 100%;
+            width: 100%;
+        }
+
+
+        .wrapper .img3_wrapper {
+            border: 1px solid black;
+            height: 300px;
+            width: 200px;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+
+
+        .wrapper .img3_wrapper .img3 {
+            float: right;
+            height: 100%;
+            width: 100%;
+        }
+
+        .wrapper .img3_wrapper .closed_wrapper {
+            display: none;
+        }
+
+
+        .wrapper .img3_wrapper:hover .closed_wrapper {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            height: 20px;
+            width: 20px;
+            background: #fff;
+            padding: 3px;
+            display: block;
+        }
+
+        .wrapper .img3_wrapper .closed_wrapper .closed {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+
+    <script>
+
+        function openAll() {
+            var nodes = document.getElementsByClassName('img_wrapper');
+
+            for (let i = 0; i < nodes.length; i++) {
+                nodes[i].style.display = 'block';
+            }
+        }
+        function closeAll() {
+            var nodes = document.getElementsByClassName('img_wrapper');
+
+            for (let i = 0; i < nodes.length; i++) {
+                nodes[i].style.display = 'none';
+            }
+        }
+
+        function closeNode(v) {
+            var node = document.getElementById(v);
+            node.style.display = 'none';
+        }
+    </script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="top">
+            <button class="openAll" onclick="openAll()">打开所有广告</button>
+            <button class="closeAll" onclick="closeAll()">关闭所有广告</button>
+        </div>
+
+        <div id="img1_wrapper" class="img1_wrapper img_wrapper">
+            <div class="closed_wrapper" onclick="closeNode('img1_wrapper')">
+                <img class="closed" src="./img/closed.png">
+            </div>
+            <img class="img1" src="./img/2.png">
+        </div>
+
+        <div id="img2_wrapper" class="img2_wrapper img_wrapper">
+            <div class="closed_wrapper" onclick="closeNode('img2_wrapper')">
+                <img class="closed" src="./img/closed.png">
+            </div>
+            <img class="img2" src="./img/1.jpeg">
+        </div>
+
+        <div id="img3_wrapper" class="img3_wrapper img_wrapper">
+            <div class="closed_wrapper" onclick="closeNode('img3_wrapper')">
+                <img class="closed" src="./img/closed.png">
+            </div>
+            <img class="img3" src="./img/3.png">
+        </div>
+    </div>
+
+</body>
+
+</html>
