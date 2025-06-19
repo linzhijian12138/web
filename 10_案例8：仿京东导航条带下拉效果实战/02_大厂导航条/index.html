@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <style>
+        .wrapper {
+            height: 36px;
+            width: 100%;
+            background: #fff;
+            border-bottom: 1px solid gray;
+            box-shadow: 0 0px 5px gray;
+        }
+
+        .wrapper .container {
+            height: 100%;
+            width: 70%;
+            margin: 0 auto;
+            position: relative;
+            min-width: 1150px;
+        }
+
+        .wrapper .container .left {
+            float: left;
+            height: 36px;
+            line-height: 36px;
+        }
+
+        .wrapper .container .left .left_text,
+        .wrapper .container .right .right_text {
+            float: left;
+            font-size: 12px;
+            color: #505259;
+            cursor: pointer;
+        }
+
+        .wrapper .container .left .left_text .login {
+            color: red;
+            margin-right: 5px;
+        }
+
+        .wrapper .container .left .left_text:hover,
+        .wrapper .container .right .right_text:hover,
+        .wrapper .container .area ul li a:hover {
+            color: red;
+        }
+
+        .wrapper .container .left .separate,
+        .wrapper .container .right .separate {
+            float: left;
+            font-size: 12px;
+            color: #505259;
+            margin: 0 10px;
+        }
+
+
+        .wrapper .container .right {
+            float: right;
+            height: 36px;
+            line-height: 36px;
+        }
+
+        .wrapper .container .area {
+            border: 1px solid black;
+            height: 150px;
+            width: 120px;
+            border-radius: 5px;
+            position: absolute;
+            top: 36px;
+            border-top: none;
+            display: none;
+        }
+
+        .wrapper .container .area ul {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            font-size: 14px;
+        }
+
+        .wrapper .container .left .address:hover .area {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <div class="container">
+            <div class="left">
+                <div class="left_text address">
+                    中国大陆版 - 北京
+                    <div class="area">
+                        <ul>
+                            <li>
+                                <a href="#">中国大陆版</a>
+                            </li>
+                            <li>
+                                <a href="#">中国港澳版</a>
+                            </li>
+                            <li>
+                                <a href="#">中国台湾版</a>
+                            </li>
+                            <li>
+                                <a href="#">京东全球版</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="separate">|</div>
+                <div class="left_text">
+                    你好,<span class="login">请登录</span>
+                </div>
+                <div class="left_text">
+                    免费注册
+                </div>
+                <div class="separate">|</div>
+                <div class="left_text">
+                    切换至企业版
+                </div>
+            </div>
+            <div class="right">
+                <div class="right_text">
+                    购物车
+                </div>
+                <div class="separate">|</div>
+                <div class="right_text">
+                    我的订单
+                </div>
+                <div class="separate">|</div>
+                <div class="right_text">
+                    免费注册
+                </div>
+                <div class="separate">|</div>
+                <div class="right_text">
+                    我的京东
+                </div>
+                <div class="separate">|</div>
+                <div class="right_text">
+                    企业采购
+                </div>
+                <div class="separate">|</div>
+                <div class="right_text">
+                    商家服务
+                </div>
+                <div class="separate">|</div>
+                <div class="right_text">
+                    网站导航
+                </div>
+                <div class="separate">|</div>
+                <div class="right_text">
+                    手机京东
+                </div>
+                <div class="separate">|</div>
+                <div class="right_text">
+                    网站无障碍
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
