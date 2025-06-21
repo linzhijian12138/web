@@ -71,11 +71,12 @@
         }
 
         #sendArea {
-            float: right;
+            display: flex;
+            justify-content: right;
+            align-items: center;
         }
 
         #sendAreaText {
-            float: left;
             font-size: 12px;
             color: #999;
         }
@@ -114,33 +115,46 @@
 
         .contentWrapper {
             width: 100%;
+            clear: both;
         }
 
         .contentLi {
-            margin-top: 10px;
             border-bottom: 1px dashed black;
+            padding: 10px 7px 7px 7px;
+            display: flex;
             width: 100%;
-            padding-bottom: 7px;
+            box-sizing: border-box;
         }
 
         .contentLi:hover {
             background-color: rgba(204, 204, 204, 0.3);
         }
 
-        .avatar {
-            margin-left: 10px;
-            margin-top: 10px;
+        .contentLi:hover .right .bottomArea .deleteBtn {
+            display: block;
         }
 
-        .topArea {
-            margin-left: 10px;
-            margin-top: 15px;
+        .contentLi .right {
+            display: flex;
+            flex-direction: column;
+            margin-left: 7px;
+            justify-content: space-between;
+            padding: 5px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .contentLi .right .topArea {
+            display: flex;
+            align-items: flex-start;
+            /* 确保内容顶部对齐 */
         }
 
         .area_title {
             font-size: 14px;
             color: #2b4a78;
             font-family: arial;
+            flex-shrink: 0;
         }
 
         .content {
@@ -148,7 +162,26 @@
             margin-left: 5px;
         }
 
-        .dateArea {}
+        .contentLi .right .bottomArea {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .contentLi .right .bottomArea .deleteBtn {
+            font: 12px / 18px arial;
+            color: #889db6;
+            cursor: pointer;
+            display: none;
+        }
+
+        .contentLi .right .bottomArea .deleteBtn:hover {
+            text-decoration: underline;
+        }
+
+        .dateArea {
+            font: 12px / 18px arial;
+            color: #889db6;
+        }
     </style>
 </head>
 
@@ -161,7 +194,7 @@
         </div>
         <!-- 名字输入框和头像 -->
         <div class="nameAndAvatar">
-            <input type="text">
+            <input type="text" id="username">
             <ul id="imgList">
                 <li onclick="selectImg(event)">
                     <img src="./img/face1.gif">
@@ -192,12 +225,13 @@
 
         <!-- 内容输入款 -->
         <div class="textWrapper">
-            <textarea id="contentArea">
+            <textarea id="contentArea" oninput="textNum(event)">
             </textarea>
         </div>
         <!-- 字数提醒和发送 -->
         <div id="sendArea">
-            <span id="sendAreaText">还能输入
+            <span id="sendAreaText">
+                <span id="textInfo">还能输入</span>
                 <span id="textNum">140</span>
                 个字</span>
             <button onclick="send()"></button>
@@ -210,20 +244,25 @@
 
         <!-- 列表 for循环渲染 -->
         <div class="contentWrapper">
-            <ul>
+            <ul id="contentUl">
                 <li class="contentLi"> <!-- 头像 -->
                     <div class="avatar">
                         <img src="./img/face1.gif">
                     </div>
                     <!-- 内容 -->
-                    <div class="topArea">
-                        <div class="area_title">张三:</div>
-                        <div class="content">新增删除广播功能。</div>
+                    <div class="right">
+                        <div class="topArea">
+                            <div class="area_title">张三:</div>
+                            <div class="content">新增删除广播功能。</div>
+                        </div>
+                        <!-- 时间 -->
+                        <div class="bottomArea">
+                            <div class="dateArea">
+                                07月05日 15:14
+                            </div>
+                            <div class="deleteBtn" onclick="deleteBtn(event)">删除</div>
+                        </div>
                     </div>
-                    <!-- 时间 -->
-                    <span class="dateArea">
-                        07月05日 15:14
-                    </span>
                 </li>
             </ul>
         </div>
@@ -232,25 +271,6 @@
     <script>
         // 用户头像
         var imgSrc = '';
-
-        // 留言列表
-        var list = [
-            {
-                username: '张三',
-                img: './img/face1.git',
-                date: '07月05日 12:20'
-            },
-            {
-                username: '李四',
-                img: './img/face2.git',
-                date: '02月04日 12:20'
-            },
-            {
-                username: '王五',
-                img: './img/face3.git',
-                date: '07月05日 12:20'
-            }
-        ]
 
         // 选择用户
         function selectImg(event) {
@@ -272,9 +292,123 @@
             imgSrc = target.src;
         }
 
+        // 计算字数
+        function textNum(event) {
+
+            var textInfoNode = document.getElementById('textInfo');
+            var textNumNode = document.getElementById('textNum');
+
+            var node = event.target;
+            var length = node.value.length;
+            if (length <= 140) {
+                // 只需要计算剩余可输入字数
+                var num = 140 - length;
+                textNumNode.innerText = num;
+                textNumNode.style.color = '#999';
+                // 修改前面的文字
+                textInfoNode.innerText = '还能输入';
+            } else {
+                var num = length - 140;
+                textNumNode.innerText = num;
+                textNumNode.style.color = 'darkred';
+                // 修改前面的文字
+                textInfoNode.innerText = '已超出';
+            }
+        }
+
         // 发送
         function send() {
+            // 判断名字是否填写了
+            var usernameNode = document.getElementById('username');
+            var username = usernameNode.value;
+            if (!username) {
+                alert('请填写您的姓名！');
+                return;
+            }
+            // 判断头像
+            if (!imgSrc) {
+                alert('请选择头像！');
+                return;
+            }
 
+            // 获取输入框的文字
+            var contentAreaNode = document.getElementById('contentArea');
+            var length = contentAreaNode.value.length;
+            if (length === 0) {
+                alert('请输入内容！');
+                return;
+            }
+            if (length > 140) {
+                alert('你输入的内容已超出限制，请检查！');
+                return;
+            }
+            // 添加节点
+
+            // 获取ul节点
+            var ulNode = document.getElementById('contentUl');
+            // 创建节点
+            // 1. 先创建li节点
+            var newLiNode = document.createElement('li');
+            newLiNode.className = 'contentLi';
+            // 2. 创建头像dom
+            var newAvatarNode = document.createElement('div');
+            newAvatarNode.className = 'avatar';
+            newLiNode.appendChild(newAvatarNode);
+            var newImgNode = document.createElement('img');
+            newImgNode.src = imgSrc;
+            newAvatarNode.appendChild(newImgNode);
+            // 3. 内容节点
+            var newRightNode = document.createElement('div');
+            newRightNode.className = 'right';
+            newLiNode.appendChild(newRightNode);
+
+            var newTopAreaNode = document.createElement('div');
+            newTopAreaNode.className = 'topArea';
+            newRightNode.appendChild(newTopAreaNode);
+
+            var newAreaTitleAreaNode = document.createElement('div');
+            newAreaTitleAreaNode.className = 'area_title';
+            newAreaTitleAreaNode.innerText = username + ":";
+            newTopAreaNode.appendChild(newAreaTitleAreaNode);
+            var newContentAreaNode = document.createElement('div');
+            newContentAreaNode.className = 'content';
+            newContentAreaNode.innerText = contentAreaNode.value;
+            newTopAreaNode.appendChild(newContentAreaNode);
+            // 4. 时间
+            var newBottomAreaAreaNode = document.createElement('div');
+            newBottomAreaAreaNode.className = 'bottomArea';
+            newRightNode.appendChild(newBottomAreaAreaNode);
+            var newDateAreaNode = document.createElement('div');
+            newDateAreaNode.className = 'dateArea';
+            newDateAreaNode.innerText = '07月05日 15:14';
+            newBottomAreaAreaNode.appendChild(newDateAreaNode);
+
+            // 5. 删除按钮
+            var newDeleteBtnNode = document.createElement('div');
+            newDeleteBtnNode.className = 'deleteBtn';
+            newDeleteBtnNode.innerText = '删除';
+            newDeleteBtnNode.addEventListener('click', deleteBtn)
+            newBottomAreaAreaNode.appendChild(newDeleteBtnNode);
+            ulNode.prepend(newLiNode);
+            // 清除用户名和内容
+            usernameNode.value = '';
+            contentAreaNode.value = '';
+
+            var textNumNode = document.getElementById('textNum');
+            textNumNode.innerText = 140;
+
+        }
+
+        // 删除
+        function deleteBtn(event) {
+            // 获取删除节点
+            var thisNode = event.target;
+
+            // 获取上级,直到li节点
+            var liNode = thisNode.parentNode.parentNode.parentNode;
+            if (liNode) {
+                liNode.remove();
+            }
         }
 
     </script>
