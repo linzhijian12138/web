@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <style>
+        body {
+            background: #A7AB8C;
+        }
+
+        .wrapper {
+            width: 500px;
+            background: #FFF;
+            border-radius: 5px;
+            margin: 10px auto;
+            padding: 10px 20px;
+            box-sizing: border-box;
+        }
+
+        .wrapper .title {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .wrapper .nameAndAvatar {
+            margin-bottom: 10px;
+            float: left;
+        }
+
+        .wrapper .nameAndAvatar input {
+            float: left;
+            border: 1px solid #d0d0d0;
+            border-radius: 5px;
+            height: 30px;
+            width: 150px;
+            padding: 0 10px;
+            margin-right: 7px;
+            outline: none;
+        }
+
+        .wrapper .nameAndAvatar ul {
+            float: left;
+        }
+
+        .wrapper .nameAndAvatar ul li {
+            float: left;
+            margin-right: 5px;
+            opacity: 0.5;
+        }
+
+        .wrapper .nameAndAvatar ul li img {
+            width: 30px;
+            border-radius: 5px;
+        }
+
+        .wrapper #contentArea {
+            resize: none;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #d0d0d0;
+            height: 90px;
+            padding: 5px 10px;
+            box-sizing: border-box;
+            font-size: 18px;
+            outline: none;
+            margin-bottom: 10px;
+        }
+
+        #sendArea {
+            float: right;
+        }
+
+        #sendAreaText {
+            float: left;
+            font-size: 12px;
+            color: #999;
+        }
+
+        button {
+            background: url(./img/btn.png) no-repeat;
+            height: 30px;
+            width: 112px;
+            border: none;
+            cursor: pointer;
+            margin-left: 25px;
+        }
+
+        #textNum {
+            font: 26px/30px Georgia, Tahoma, Arial;
+        }
+
+        .ceparation {
+            float: left;
+            height: 38px;
+            width: 100%;
+            background: #E3EAEC;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .ceparation span {
+            color: gray;
+            background: #fff;
+            height: 38px;
+            margin-left: 10px;
+            margin-top: 8px;
+            padding: 8px 10px 0 10px;
+            float: left;
+        }
+
+        .contentWrapper {
+            width: 100%;
+        }
+
+        .contentLi {
+            margin-top: 10px;
+            border-bottom: 1px dashed black;
+            width: 100%;
+            padding-bottom: 7px;
+        }
+
+        .contentLi:hover {
+            background-color: rgba(204, 204, 204, 0.3);
+        }
+
+        .avatar {
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+
+        .topArea {
+            margin-left: 10px;
+            margin-top: 15px;
+        }
+
+        .area_title {
+            font-size: 14px;
+            color: #2b4a78;
+            font-family: arial;
+        }
+
+        .content {
+            font-size: 14px;
+            margin-left: 5px;
+        }
+
+        .dateArea {}
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- 标题 -->
+        <div class="title">
+            来 , 说说你在做什么 , 想什么
+        </div>
+        <!-- 名字输入框和头像 -->
+        <div class="nameAndAvatar">
+            <input type="text">
+            <ul id="imgList">
+                <li onclick="selectImg(event)">
+                    <img src="./img/face1.gif">
+                </li>
+                <li onclick="selectImg(event)">
+                    <img src="./img/face2.gif">
+                </li>
+                <li onclick="selectImg(event)">
+                    <img src="./img/face3.gif">
+                </li>
+                <li onclick="selectImg(event)">
+                    <img src="./img/face4.gif">
+                </li>
+                <li onclick="selectImg(event)">
+                    <img src="./img/face5.gif">
+                </li>
+                <li onclick="selectImg(event)">
+                    <img src="./img/face6.gif">
+                </li>
+                <li onclick="selectImg(event)">
+                    <img src="./img/face7.gif">
+                </li>
+                <li onclick="selectImg(event)">
+                    <img src="./img/face8.gif">
+                </li>
+            </ul>
+        </div>
+
+        <!-- 内容输入款 -->
+        <div class="textWrapper">
+            <textarea id="contentArea">
+            </textarea>
+        </div>
+        <!-- 字数提醒和发送 -->
+        <div id="sendArea">
+            <span id="sendAreaText">还能输入
+                <span id="textNum">140</span>
+                个字</span>
+            <button onclick="send()"></button>
+        </div>
+
+        <!-- 分隔行 -->
+        <div class="ceparation">
+            <span>大家在说</span>
+        </div>
+
+        <!-- 列表 for循环渲染 -->
+        <div class="contentWrapper">
+            <ul>
+                <li class="contentLi"> <!-- 头像 -->
+                    <div class="avatar">
+                        <img src="./img/face1.gif">
+                    </div>
+                    <!-- 内容 -->
+                    <div class="topArea">
+                        <div class="area_title">张三:</div>
+                        <div class="content">新增删除广播功能。</div>
+                    </div>
+                    <!-- 时间 -->
+                    <span class="dateArea">
+                        07月05日 15:14
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // 用户头像
+        var imgSrc = '';
+
+        // 留言列表
+        var list = [
+            {
+                username: '张三',
+                img: './img/face1.git',
+                date: '07月05日 12:20'
+            },
+            {
+                username: '李四',
+                img: './img/face2.git',
+                date: '02月04日 12:20'
+            },
+            {
+                username: '王五',
+                img: './img/face3.git',
+                date: '07月05日 12:20'
+            }
+        ]
+
+        // 选择用户
+        function selectImg(event) {
+            // 现将所有头像的透明度设置为透明度0.5
+            var imgList = document.getElementById('imgList');
+            var liList = imgList.childNodes;
+            liList.forEach(item => {
+                if (item.nodeType === 1) {
+                    item.style.opacity = 0.5
+                }
+            })
+
+            // 把点击节点的父节点透明度改为1
+            var target = event.target;
+            var parent = target.parentNode;
+            parent.style.opacity = 1;
+
+            // 保存图片
+            imgSrc = target.src;
+        }
+
+        // 发送
+        function send() {
+
+        }
+
+    </script>
+
+</body>
+
+</html>
